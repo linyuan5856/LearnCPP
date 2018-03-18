@@ -72,3 +72,28 @@ int num{};//默认初始化位0
 ```
 - cout表示 进制的用法
 `dex,hex,oct eg:-->cout<<hex`
+
+- signed char 和 unsigned char
+`默认情况既不是没有符号也不是有符号 具体情况又C++实现决定`
+`unsigned char(0-255)`
+`signed char (-128-127)`
+
+- wchat_t
+`当无法用8字节表示（日本汉字）`
+``` c++
+wchar_t bob=L'p'; //前缀L 表示是宽字符串
+wcout<<L"tall"<<endl; //使用wcin wcout输入输出
+```
+- char16_t char32_t
+``` c++
+char16_t cha1=u 'q'; //小写u 匹配char16_t
+char32_t cha2=U '\0000222B';//大写U 匹配char32_t
+```
+
+- 书写浮点数
+  ``` c++
+  float f=0.32;
+  float f2=32E-2;//32/10^2
+  ```
+
+  - 浮点类型 `float double long double`
