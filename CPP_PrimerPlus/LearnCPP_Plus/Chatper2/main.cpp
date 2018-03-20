@@ -24,10 +24,35 @@ void chapter3_FLoat()
 	cin.get();
 }
 
+void chapter4_Arrary()
+{
+	float foods[] = { 2,3,4 };
+	short things[5]= { 20,30 };
+	std::cout << things[3]<<std::endl;
+	std::cout << things[1] << std::endl;
+	//C++ 11 初始化方式
+	double ds[50]{};
+	int nums[20] = {};
+	std::cin.get();
+	
+}
+
+void Chapter4_String()
+{
+	char names[] = "name is Lin";
+	std::cout << sizeof(names) << std::endl;
+	std::cout << strlen(names) << std::endl;
+
+	std::cin.get();
+
+}
+
 int  main()
 {
 	//chapter1_helloWorld();
-	chapter3_FLoat();
+	//chapter3_FLoat();
+	//chapter4_Arrary();
+	Chapter4_String();
 	return 0;
 }
 

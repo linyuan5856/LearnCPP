@@ -116,7 +116,165 @@ char32_t cha2=U '\0000222B';//大写U 匹配char32_t
   ``` c++
    int a=5; long l=(long)a; //强制转型不会改变原来的值 而是生成新的值
   ```
- 
- # 第四章 复合类型
- ## 数组
+# 第四章 复合类型
+## 数组
+ `short months[12]; (typeName arraryName[arrarySize])`
+ - C++数组从0 开始编号
+ - 大括号初始化
+ ``` c++
+  int arrary[3]={20,30,40};
+  std::cout<<arrary[0]+arrary[1]+arrary[2]<<std::endl;//90
+  float temps[5]={2.0f,3.5f};//只初始化前两个元素 其他默认初始值 0
+  char things[]={2,3,4,5};//如果元素没有设置 C++会计算元素个数
+
+ ```
+ - c++11初始化
+ ``` c++
+double books[4]{1.2e4,1.6e4,2.5e6};
+unsigned int boats[100]={}; //所有元素为默认值0
+unsigned int teas[100]{}; //所有元素为默认值0
+ ```
+ **禁止缩窄** 
+ ``` c++
+  long l[]={25,92,3.0};//不允许 浮点数转换整型是缩窄 
+  char c[4]{'h','i',1122011,'0'};//不允许 int类型超越了8位char最大值
+ ```
+## 字符串
+  ### C风格字符串 `以空字符结尾（'\0' ASCII码为0）`
+  - 初始化
+  ``` c++
+  char dogs[4]={'b','i','g','o'};//普通数组
+  char cats[5]={'c','a','t','s','\0'};//字符串
   
+  //简化申明方式  隐士的包含了'\0'
+  char cats[5]="cats";
+  char dogs[]="dogs";  
+  
+ //字符串常量 不能与 字符常量互换
+  char s='s';//字符常量 ASCII编码 83
+  //"s" ->'s','\0' 由两个字符构成的字符串 实际上表示的是字符串所在的内存地址
+
+  ```
+  - 拼接字符串
+   ``` c++
+    std::cout << "one" "two"
+    "three"<<std::endl; //空格 制表符 换行符分隔的字符串都会自动拼接
+   ```
+
+ - 在数组中使用字符串
+  ``` C++
+   char names[]="name is Lin";
+   std::cout<<sizeof(names)<<std::endl;//12个字节 数组大小
+   std::cout<<strlen(names)<<std::endl;//11个字符 字符串长度
+  ```
+ - 读取整行的方法 cin.getline() 舍弃换行符  cin.get() 保留换行符
+
+ - 其他方法
+  ``` c++
+  char c1[20];
+  char c2[20]="qdsadada";
+
+  strcpy(c1,c2); //拷贝
+  strcat(c1,"another");//附加
+  ```
+   
+  ### string类库
+ - 和C风格字符串 主要区别:
+   1.String对象可以申明为简单变量 而不是数组
+   2.类设计让程序能够自动处理string的大小 更安全更方便
+
+ - 赋值，拼接和附加
+ ``` c++
+   string s1;
+   string s2="i am s2";
+   s1=s2;
+   
+   char c1[];
+   char c2[]="i am c2";
+   c1-c2;//非法 数组不可以复制给另一个数组
+
+   string s3=s1+s2;//string拼接 
+   s3+="end";//附加
+ ```
+## 结构简介
+ - 创建初始化
+ ``` C++
+struct myStruct{
+  int id;
+  unsigned int hp;
+  std::string name;
+}
+ 
+  //初始化
+  myStruct Lin={1,56,"Lin"};
+     
+  std::cout<<Lin.id<<std::endl;
+
+ //同时完成创建和初始化
+ struct coat{
+   int num;
+   float price;
+ }ship,duck;
+
+ ```
+ - 结构数组
+ ``` c++
+  struct m_s{
+    int num;
+    float hp;
+  };
+  m_s nums[20];
+  nums[0]={5,30.0f};
+
+ ```
+ - 结构中的位字段 `字段类型为整型或枚举`
+  ``` c++
+   struct register={
+    unsigned int SN:4; //SN的值 4bit
+    unsigned int :4; //类型 4bit
+    bool goodin:1; //1 bit 
+    bool goodTorgele :1;
+   };
+  ```
+## 共用体 
+` 存储不同数据 但同时只能使用一种`
+
+``` c++
+union one4all{
+   int int_val;
+   long long_val;
+   double double_val;
+}
+
+ //匿名共同体 
+  struct widget{
+    char brand[20];
+    int type;
+    union{
+     long id_num;
+     char id_char[20];
+    };
+  }
+
+  widget price;
+  if(price.type==1)
+  std::cin>>price.id_num;
+  else
+  std::cin>>price.id_char;
+```
+## 枚举
+
+``` c++
+//对应数值从0开始
+ enum spectrum{ red,green,yellow,blue,grey,purple};
+  spectrum color;
+  color=red;
+  color=spectrum[3];//不能越界
+ 
+ //设置枚举的量
+   enum sport={football=1,basketball=2};
+   //显示设置
+    enum peopel={man,woman=500,earth,marth};//man是0 woman 500 earth 501 marth 502
+```
+## 指针和自由存储空间
+
