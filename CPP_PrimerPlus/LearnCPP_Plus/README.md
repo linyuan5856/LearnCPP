@@ -393,6 +393,47 @@ delete any;
 
 `动态存储 new delete `
 
+# 第五章 循环和关系表达式
+
+## for 循环
+``` c++
+using namespace std;
+//C循环写法 （兼容C++）
+int i;
+for(i=5;i<10;i++)
+cout<<i<<endl;
+//C++新写法
+for(int i=5；i；i--) //i为0的时候停止 非0为ture 0为false
+cout<<i<<endl;
+```
+
+- `++i和i++   --i和i--`
+``` c++
+int a=20;
+int b=30;
+
+std::cout<<a++<<std::endl;//20
+std::cout<<++b<<std::endl;//31
+
+std::cout<<a<<std::endl;//21
+std::cout<<b<<std::endl;//21
+```
+## while 循环
+``` c++
+while(true)
+std::cout<<"while loop is doing"<<std::endl;
+
+for(;;)
+std::cout<<""for loop forever"<<std::endl;
+```
+## 基于范围的for循环(C++11)
+``` c++
+int nums[5]={1,2,3,4,5};
+for(int x::nums)
+std::cout<<x<<std::endl;//1,2,3,4,5
+```
+
+
 
 
 
