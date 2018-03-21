@@ -47,12 +47,90 @@ void Chapter4_String()
 
 }
 
+void Chapter4_Pointer()
+{
+	
+	using namespace  std;
+	double num = 52.30;
+	int id = 32;
+
+	cout << "num Value->" << num << endl;//53.2
+	cout << "num pointer->" << &num << endl;//006FFA44
+
+	cout << "id Value->" << id << endl;//53.2
+	cout << "id pointer->" << &id << endl;//006FFA38
+
+	cin.get();
+}
+
+void Chapter4_ArraryWithNew()
+{
+	using namespace std;
+	int*psome = new int[4];
+	psome[0] = 1;
+	psome[1] = 3;
+	psome[2] = 5;
+	psome[3] = 7;
+
+	cout << *psome << endl;
+	cout << psome[0] << endl;
+
+	psome = psome + 1;
+	cout << "new pSome[0] ->  " << *psome << endl;
+	psome = psome - 1;
+	cout << "Back To Old pSome[0]  ->  " << *psome << endl;
+
+
+	delete[]psome;
+	cin.get();
+}
+
+void Chapter4_StringPointer()
+{
+		using namespace std;
+		char animals[5] = "duck";
+		const char*bird = "tom";
+
+		cout << animals << endl;//duck
+		cout << bird << endl;//tom
+
+		cin.get();
+}
+
+void Chapter4_NewStruct()
+{
+	using namespace std;
+	struct things {
+		int id;
+		const char* describe;
+	}coat;
+
+	coat = { 1,"i am a coat" };
+	things *p_coat = &coat;
+
+	cout << p_coat->id << endl;//1
+
+	things *any = new things;
+	(*any).id = 9527;
+	any->describe = "i am 9527";
+
+	cout << any->id << endl;
+	cout << (*any).describe << endl;
+	cin.get();
+
+	delete any;
+}
+
 int  main()
 {
 	//chapter1_helloWorld();
 	//chapter3_FLoat();
 	//chapter4_Arrary();
-	Chapter4_String();
+	//Chapter4_String();
+	//Chapter4_Pointer();
+	//Chapter4_ArraryWithNew();
+	//Chapter4_StringPointer();
+	Chapter4_NewStruct();
 	return 0;
 }
 

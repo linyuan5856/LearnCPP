@@ -277,4 +277,122 @@ union one4all{
     enum peopel={man,woman=500,earth,marth};//man是0 woman 500 earth 501 marth 502
 ```
 ## 指针和自由存储空间
+``` c++
+int main(){
+using namespace std;
+ int updates=6;
+ int *p_updates=&updates;
+
+ cout<<"values : Updates"<<updates<<endl;//6
+ cout<<"*p_updates= "<<*p_updates<<endl;//6
+
+ cout<<"p_updates="<<p_updates<<endl;//0x0065fd48
+ cout<<"&updates="<<&updates<<endl;//0x0065fd48
+}
+```
+- 使用new来分配内存 delete释放内存
+``` c++
+using namespace std;
+//可以通过nights 或*p_nights 得到1001的值 变量的内存在stack栈中
+int nights=1001;
+int* p_nights=&nights;
+
+//只能通过*pt 得到值 new出的内存都在堆中
+int *pt=new int;
+*pt=1001;
+delete pt;
+```
+
+-使用new 来创建动态数组
+``` c++
+using namespace std;
+int*psome=new int[4];
+psome[0]=1;
+psome[1]=3;
+psome[2]=5;
+psome[3]=7;
+
+//数组的指针就是第一个元素的地址
+cout<<*psome<<endl;//1
+cout<<psome[0]<<endl;//1
+
+//数组的指针+1 -1 就是移动数组一个元素的地址
+psome=psome+1;
+cout<<"new pSome[0]"<<*psome<<endl;//new psome[0] 3
+psome=psome-1;
+cout<<"Back To Old pSome[0]"<<*psome<<endl;//back to old psome[0] 1
+
+delete []psome;
+
+```
+`不要使用delete释放一个不是new分配的内存`
+`不要使用delete释放一个内存块两次`
+`如果使用new[]为数组分配内存，应该使用delete[]来释放`
+`如果使用new[]来为一个实体分配内存，应该使用delete(没有方括号)来释放`
+`对空指针应用delete是安全的`
+
+## 指针，数组和指针算术
+
+- 数组的地址
+``` c++
+using namespace std;
+int*psome=new int[3];
+psome[0]=1;
+psome[1]=3;
+psome[2]=5;
+
+cout<<psome<<endl;//第一个元素的地址
+cout<<&psome<<endl;//整个数组（3个元素）的地址
+
+/* 可以理解为 int(*pas)[3]=&psome; 必须加小括号 不然代码int数组的指针
+   *pas=psome; -> *pas[0]=psome[0]=psome; 第一个元素
+  */
+```
+- 指针和字符串
+`在cout和多数C++表达式中，char数组名、char指针以及用引号括起的字符串常量都被解释为字符串第一个字符的地址`
+
+``` c++
+int main(){
+using namespace std;
+char animals[5]="duck";
+const char*bird="tom";
+
+//cout 收到字符串的指针就会 找到指针指向的内容输出 一直遇到空字符('\0')
+cout<<animal<<endl;//duck
+cout<<bird<<endl;//tom
+}
+```
+- 使用new 创造动态结构
+``` c++
+using namespace std;
+struct things{
+  int id;
+  const char* describe;
+}coat;
+
+coat={1,"i am a coat"};
+things *p_coat=&coat;
+
+cout<<p_coat->id<<endl;//1
+
+things *any=new things;
+(*any).id=9527;
+any->describe="i am 9527";
+
+cout<<any->id<<endl;//9527
+cout<<(*any).describe<<endl;//i am 9527
+
+delete any;
+```
+
+- 自动存储,静态存储,动态存储
+
+`函数内部定义的变量 使用自动存储空间 函数调用时候产生 结束时消亡`
+
+`静态存储（整个程序执行期间都存在） 1.函数外面定义 2.使用static关键字 `
+
+`动态存储 new delete `
+
+
+
 
