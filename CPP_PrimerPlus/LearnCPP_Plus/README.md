@@ -432,8 +432,14 @@ int nums[5]={1,2,3,4,5};
 for(int x::nums)
 std::cout<<x<<std::endl;//1,2,3,4,5
 ```
+# 第六章 分支语句和逻辑运算符
+`if `
+`if else `
+`&& || !`
+` ? ：`
+`switch`
+`continue break`
 
-
-
+#第七章 函数-C++编程模块
 
 
