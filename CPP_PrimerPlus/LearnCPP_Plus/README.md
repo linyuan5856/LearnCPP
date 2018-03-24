@@ -441,5 +441,60 @@ std::cout<<x<<std::endl;//1,2,3,4,5
 `continue break`
 
 #第七章 函数-C++编程模块
+- 基本概念
+`提供函数原型`
+`提供函数定义`
+`调用函数`
 
+- 函数参数和按值传递
+` argument 实参 parameter 形参`
+`函数传递的都是副本 不会对数据源进行任何修改（指针 引用除外） `
 
+- 函数和数组
+` 函数数组参数 传递的其实是数组的指针（第一个元素）`
+  1.数组申明使用数组名来标记存储位置
+  2.对数组名使用sizeof将得到整个数组的长度（以字节为单位）
+  3.将地址运算符&用于数组名时，返回整个数组的地址
+
+  ``` c++
+  //下面2个sum方法的参数 等价 都是数组
+   void sum(int[]array){};
+    
+   void sum(int*arrary); 
+
+   //const 代表参数是常量数据 不可更改 只读 
+   void dosth(const int*arrary){}
+  ```
+
+- 函数和C风格字符串
+ ` 表示字符串的三种方式`
+  1.char数组
+  2.用引号括起的字符串常量（也称字符串字面值）
+  3.被设置为字符串的地址的char指针
+
+  ``` c++
+  char ghost[15]="gogogo";
+  char*str="gogogo";
+
+  int n1=strlen(ghost);//&ghost[0]
+  int n2=strlen(str);//char指针
+  int n3=strlen("gogogo");//字符串指针的地址
+  ```
+
+- 函数和结构
+ 1.传递函数的副本
+ 2.传递指针
+ 3.传递引用
+
+ - 函数指针
+  ``` c++
+  //申明
+  double pam(int);
+  doublt(*pf)(int);
+  //赋值
+  pf=pam;
+  //调用
+  (*pf)(32.6);
+  pf(32.6);
+   ```
+  
