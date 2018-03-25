@@ -441,16 +441,16 @@ std::cout<<x<<std::endl;//1,2,3,4,5
 `continue break`
 
 #第七章 函数-C++编程模块
-- 基本概念
+## 基本概念
 `提供函数原型`
 `提供函数定义`
 `调用函数`
 
-- 函数参数和按值传递
+## 函数参数和按值传递
 ` argument 实参 parameter 形参`
 `函数传递的都是副本 不会对数据源进行任何修改（指针 引用除外） `
 
-- 函数和数组
+## 函数和数组
 ` 函数数组参数 传递的其实是数组的指针（第一个元素）`
   1.数组申明使用数组名来标记存储位置
   2.对数组名使用sizeof将得到整个数组的长度（以字节为单位）
@@ -466,7 +466,7 @@ std::cout<<x<<std::endl;//1,2,3,4,5
    void dosth(const int*arrary){}
   ```
 
-- 函数和C风格字符串
+## 函数和C风格字符串
  ` 表示字符串的三种方式`
   1.char数组
   2.用引号括起的字符串常量（也称字符串字面值）
@@ -481,12 +481,12 @@ std::cout<<x<<std::endl;//1,2,3,4,5
   int n3=strlen("gogogo");//字符串指针的地址
   ```
 
-- 函数和结构
+## 函数和结构
  1.传递函数的副本
  2.传递指针
  3.传递引用
 
- - 函数指针
+ ## 函数指针
   ``` c++
   //申明
   double pam(int);
@@ -498,3 +498,181 @@ std::cout<<x<<std::endl;//1,2,3,4,5
   pf(32.6);
    ```
   
+# 第八章 函数探幽
+## c++内联函数
+` 效率更高，副作用：占用更多的内存`
+` 在函数申明前加上关键字inline`
+` 在函数定义前加上关键字inline`
+
+``` c++
+inline double square(double x){return x*x};
+
+int main(){
+   int result=square(5);
+   std::cout<<result<<std::endl;
+  return 0;
+}
+```
+
+## 引用变量
+``` c++
+int rats;
+int & rodents=rats;//此处& 不是地址运算符 而是类型标识符 （引用）
+```
+
+`引用和指针的区别 引用必须初始化（和常量指针的特性相同）`
+
+`引用`
+``` c++
+int main(){
+using namespace std;
+int rats=101;
+int & rodents=rats;
+int bunnies=50;
+rodents=bunnies;
+
+ cout<<rats<<endl;//50
+ cout<<rodents<<endl;//50
+ cout<<bunnies<<endl;//50
+ return 0；
+ } 
+```
+` 指针`
+``` c++
+int main(){
+using namespace std;  
+  int rats=101;
+  int *pt=&rats; 
+  int &rodents=*pt;
+  int bunnies=50;
+  pt=&bunnies;
+  cout<<rats<<endl;//101
+  cout<<rodents<<endl;//101
+  cout<<bunnies<<endl; //50 
+   return 0；
+}
+```
+
+`临时变量，引用参数，const `
+ - - 创建临时参数的条件
+    1.引用参数是const
+     2.实参的类型正确但不是左值
+      3.实参的类型不正确但可以转换为正确的类型
+
+ `左值：可被引用的数据对象（eg:变量，数组元素，结构成员，引用和解除引用的指针都是左值） `
+
+ ``` c++
+  double refcube(const double &ra){return ra*ra*ra};
+   
+   double side=3.0;
+   double *pd=&side;
+   double &rd=side;
+   lng edge=5L;
+   double lens[4]={2.0,3.0,4.0,5.0};
+
+  int main(){
+   double c1=refcube(side);//传递引用
+   double c2=refcube(lens[2]);//传递引用
+   double c3=refcube(rd);//传递引用
+   double c4=refcube(*pd);//传递引用
+   double c5=refcube(edge);//临时变量 实参类型不正确
+   double c6=refcube(7.0);//临时变量   类型正确 不是左值
+   double c7=refcube(side+10.0);//临时变量  类型正确不是左值   
+    return 0;
+  }
+ ```
+ `应尽可能使用const `
+  - - 使用const可以避免无意中修改数据的编程错误
+  - - 使用const使函数能够处理const和非const实参，否则只能接受非const数据
+  - - 使用const引用函数能够正确生产并使用临时变量
+ 
+  ` c++ 11 新加入->右值引用 使用&&申明 `
+  ``` c++
+  int main(){
+    using namespace std;
+    double && rref=std::qurt(36.00);
+    double j=15.0;
+    double &&jref=2.0*j+18.5;
+    cout<<rref<<'\n';//6.0
+    cout<<jref<<'\n';//48.5    
+    return 0;}
+  ```
+## 默认参数
+## 函数重载
+``` c++
+void print(const char*str,int width); //#1
+void print(double d,int width);       //#2
+void print(long l,int width);         //#3
+void print(int i,int width);          //#4
+void print(const char*str);           //#5
+
+print("something",15); //#1
+print("something");    //#5
+print(1999.0,10);      //#2
+print(1999,11);        //#4
+print(1999L,12);       //#3
+
+unsigned int year=1998;
+print(year,6);//不与任何匹配 编译器进行强制转化时候 会发现3个可转化选择这种情况下 编译器拒绝这种函数调用
+
+/* 下面2个重载方法不成立 返回值不同 特征标（参数）也必须不同 */
+long drongk(int n,float m);
+double drongk(int n,float m);
+```
+## 函数模板
+
+-  基本描述
+``` c++
+ template<typename AnyType>
+ void swap(AnyType &a,AnyType &b){
+   AnyType temp;
+   temp=a;
+   a=b;
+   b=temp;
+ }
+```
+- 重载的模板
+``` c++
+template<typename T>
+void Swap(T &a,T &b);
+
+template<typename T>
+void Swap(T *a,T *b,int n);
+```
+- 显示具体化
+`1.对于给定的函数名，可以有非模板函数、模板函数和显示具体化模板函数以及
+它们的重载模板`
+`2.显示具体化的原型和定义应以template<>打头，并通过名称来指出类型 `
+`3.具体化优先于常规模板，而非模板函数优于具体化和常规模板 `
+
+``` c++
+//非模板函数
+void swap(job&,job&);
+
+//模板函数
+template<typename T>
+void swap(T &.T &);
+
+//显示具体化
+template<> void swap<job>(job&,job&);
+//显示具体化的第二种写法 省略<job>
+template<> void swap(job&,job&);
+```
+
+- 实例化和具象化
+- 编译器选择哪个函数版本
+- 模板函数的发展
+` c++11 新增关键字 decltype`
+``` c++
+ int x;
+ decltype(x) y;//让y和x同一个类型
+
+template<typename T1,typename T2>
+ void ft(T1 x,T2 y){
+  decltype(x+y)xpy=x+y;
+ }
+```
+`c++11 后置返回值类型 `
+``` c++
+ auto h(int x,float y)->double{body};
+```
