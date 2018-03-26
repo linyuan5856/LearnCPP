@@ -689,9 +689,42 @@ template<typename T1,typename T2>
 ```
 ## 存储持续性、作用域和链接性
 - 自动存储持续性
+` 自动变量的存储位置在栈中 函数开始入栈 函数结束出栈`
 - 静态存储持续性
+- - 外部链接性
+` extern 使用外部变量`
+- - 内部链接性
+- - 无链接性
+``` c++
+int global=886;//外部链接性 静态存储
+static int one_file=688;//内部链接性 静态存储
+int main(){
+  return 0;
+}
+
+void foo(int n)
+{
+  static int count=0;//无链接性 静态存储
+  int llama=0;//自动变量
+}
+```
 - 线程存储持续性（C++11）` thread_local`
 - 动态存储持续性
+
+- 说明符 和 限定符 
+ - - 存储说明符
+  ` auto(c++11中不再是说明符)`
+  ` register`
+  ` static`
+  ` extern`
+  ` thread_local`
+  ` mutable（即使结构或类成员为const 其变量也可以修改）`
+
+- - cv_限定符
+` const`
+` volatile(变量可能被修改)`
+
+- 函数的链接性
 
 ## 命名空间
 ` 解决名称冲突`
