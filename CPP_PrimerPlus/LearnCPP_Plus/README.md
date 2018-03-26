@@ -676,3 +676,22 @@ template<typename T1,typename T2>
 ``` c++
  auto h(int x,float y)->double{body};
 ```
+# 内存模型和名称空间
+## 单独编译
+``` c++
+#ifndef DEF_H
+#define DEF_H
+  //do something
+  
+#endif
+
+//防止头文件被多次include
+```
+## 存储持续性、作用域和链接性
+- 自动存储持续性
+- 静态存储持续性
+- 线程存储持续性（C++11）` thread_local`
+- 动态存储持续性
+
+## 命名空间
+` 解决名称冲突`
