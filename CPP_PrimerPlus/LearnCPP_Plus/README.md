@@ -728,3 +728,128 @@ void foo(int n)
 
 ## 命名空间
 ` 解决名称冲突`
+
+# 对象和类
+## 抽象和类
+``` c++
+//stock.h头文件
+class Stock{
+ private:
+  char company[30];
+  int shares;
+  double share_val;
+  double total_val;
+  void set_tot(){total_val=shares*share_val};
+  public:
+  void acquire(const char*co,int n,double pr);
+  void buy(int num,double price);
+  void sell(int num,double price);
+  void show();
+}
+```
+```c++
+//stock.cpp文件
+#include "stock.h"
+void Stock::acquire(const char*co,int n,double pr)
+{
+ //implement function
+}
+
+void Stock::buy(int num,double price){
+ //implement function
+
+}
+  
+void Stock::sell(int num,double price){
+ //implement function
+
+}
+
+void Stock::show(){
+ //implement function
+}
+```
+##类的构造函数和析构函数
+- 基本写法
+``` c++
+Stock::Stock(const string&co,long n=0,double pr){
+  //init 
+}
+
+Stock::Stock(){
+
+}
+
+Stock::~Stock(){
+
+}
+```
+
+- 具体调用
+``` c++
+ int main(){
+    /*初始化类的两种方式*/
+    //初始化一个类
+    Stock stock1("stock1",12,20.0);
+    
+    //C++编译器有两种处理方式
+    //1.和stock(....)相同直接初始化
+    //2.初始化一个临时变量 再复制给stock2 临时变量销毁时会调用析构函数
+    Stock stock2=Stock("stock2",10,5.0);
+    //将sotck2的值复制到stock1中
+    stock1=stock2;
+    
+    //stock1已经存在 不是初始化而是申请一个临时变量赋值到stock1 再销毁临时变量
+    stock1=Stock("new stock1",15,98.0);
+    return 0;
+ }
+```
+`C++11列表初始化`
+``` c++
+ Stock st={"c11 init way",100,45.0};
+ Stock st1{"no = init"};//参数不足 按照类型默认值初始化
+ Stock temp{};
+```
+
+`const成员函数`
+``` c++
+  const Stock m_stock=Stock("const foo");
+  m_stock.show();//编译器无法通过 无法保证对象不被修改
+
+  //可以将const关键字放在函数后面 表示此函数不会修改调用对象
+   void show()const;
+    
+   Stock::show()const;
+
+```
+
+## this 指针
+## 对象数组
+## 类作用域
+``` C++
+/*作用域为类的常量*/
+class Bakery{
+  private:
+  //创建对象前 没有存储
+  const int Months=12;
+  double costs[Months];
+}
+
+/*解决方式*/
+//A.申明一个枚举（作用域为整个类）
+class Bakery{
+  private:
+   enum{Months=12};
+   double costs[Months];
+}
+
+//B.static 会创建一个常量和其他静态变量存储在一起而不是存储在对象中
+ class Bakery{
+   private:
+   static const int Months=12;
+   double cost[Months];
+ }
+
+```
+
+## 抽象数据类型
