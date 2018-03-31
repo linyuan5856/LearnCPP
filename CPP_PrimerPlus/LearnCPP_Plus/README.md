@@ -853,3 +853,67 @@ class Bakery{
 ```
 
 ## 抽象数据类型
+
+# 第十一章 使用类
+## 运算符重载
+``` c++
+/* .h*/
+class Time
+{
+  private:
+  int hours;
+  int minutes;
+  public:
+  Time();
+  Time(int h,int m=0);
+  void AddMin(int m);
+  void AddHour(int h);
+  void Reset(int h=0,int m=0);
+  Time opertator+(const Time & t) const;
+  void Show()const;
+}
+
+/* .cpp*/
+  Time::Time()
+  {
+    hours=minutes=0;
+  }
+
+  Time::Time(int h,int m=0)
+  {
+     hours=h;
+     minutes=m;
+  }
+  
+  void Time::AddMin(int m){
+     //do sth
+  }
+  void Time::AddHour(int h){
+     //do sth
+  }
+  void Time::Reset(int h=0,int m=0){
+     //do sth
+  }
+  Time Time::opertator+(const Time & t) const{
+     Time sum;
+     sum.minutes=minutes+t.minutes;
+     sum.hours=hours+t.hours+sum.minutes/60;
+     sum.minutes%=60;
+     return sum;
+  }
+  void Time::Show()const{
+     //do sth
+  }
+```
+## 友元
+` 虽然在类中申明但不是成员函数  不能使用成员运算符来调用`
+` 虽然不是成员函数 但是访问权限和成员函数相同`
+``` c++
+/*.h*/
+friend Time operator*(double m,const Time&t); 
+
+/*.cpp*/
+Time operator*(double m,const Time&t){
+
+};
+```
