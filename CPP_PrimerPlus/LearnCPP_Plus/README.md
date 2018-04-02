@@ -917,3 +917,40 @@ Time operator*(double m,const Time&t){
 
 };
 ```
+
+# 第十二章 类和动态内存分配
+## 特殊成员函数
+- 没有定义的情况 C++自动提供
+`默认构造函数`
+`默认析构函数`
+`复制析构函数`
+`赋值运算符`
+`地址运算符`
+
+- c++11 另外提供了
+`移动构造函数`
+`移动赋值函数`
+
+## 比较成员函数
+## 静态成员函数
+```c++
+ class string{
+   public:
+   static int HowMany();
+ }
+class string{
+  //静态成员函数 不能使用this 指针调用（this->HowMany 非法）
+  static int HowMany(){return num_string;}
+}
+
+int main(){
+  int count=string::HowMany(); 如果在public中 可以用作用域解析运算符调用
+  return 0;
+}
+```
+## 指向对象的指针
+``` c++
+class sth{}
+
+sth *pclass=new sth();
+```
