@@ -2,9 +2,9 @@
 
 #include <iostream>
 
-int main()
+//**变量初始化*/
+void study1()
 {
-
     //变量的初始化方式
     int sold = 0;
     int sold1 = {1};
@@ -22,7 +22,11 @@ int main()
     }
 
     std::cout << index << std::endl;
+}
 
+//**引用和指针*/
+void study2()
+{
     //引用（引用不能为空 必须初始化）
 
     int value = 2048;
@@ -51,6 +55,81 @@ int main()
     double *test = static_cast<double *>(pv);
 
     std::cout << *test << std::endl;
+}
+
+//**引用和指针拓展*/
+void study3()
+{
+    //1.指向指针的指针
+    int val = 1024;
+    int *p = &val;
+    int **ppl = &p;
+
+    std::cout << " 指针p->  " << p << std::endl;
+    std::cout << " 指针ppl->  " << ppl << std::endl;
+    std::cout << " 解开 指针p->  " << *p << std::endl;
+    std::cout << " 解开 指针ppl->  " << *ppl << std::endl;
+    std::cout << " Double 解开 指针ppl->  " << **ppl << " \n " << std::endl;
+
+    //2.只想指针的引用
+    int value = 2046;
+    int *pointer;
+    int *&r = pointer;
+
+    r = &value;
+    std::cout << " pointer指针的值-> " << pointer << std::endl;
+    std::cout << " 解开pointer指针-> " << *pointer << std::endl;
+    std::cout << " value的值-> " << value << std::endl;
+    *r = 0;
+
+    std::cout << " value最新的值->" << value << std::endl;
+}
+
+//1.初始化常量（仅在文件中有效）
+const int buffer = 1024;
+//buffer=2048; --invalid
+
+//2. 在文件件共享的变量
+extern const int buffer2 = 2048;
+
+//**Const限定符*/
+void study4()
+{
+    //3.Const的引用
+    const int c = 1;
+    const int &r1 = c; //对常量的引用
+    //r1=42;  --invalid 常量引用不可变更
+    //int &r2=c; --invalid 非常量引用 不能引用常量
+
+    int value = 2;
+    const int &r2 = value; //允许将 const int &绑定到一个普通int对象上
+
+    int i = 42;
+    int &ref = i;
+    const int &ref2 = i;
+    ref = 0;
+    //ref2=0; --invalid 常量引用不可以赋值
+
+    //4.指针和Const
+    double d = 3.1415926;
+    const double *const p = &d;
+    double *p2 = &d;
+
+    double d2 = 1.14;
+    //p = &d2; const指针不可被修改
+    p2 = &d2;
+}
+
+int main()
+{
+
+    //study1();
+
+    //study2();
+
+    //study3();
+
+    study4();
 
     return 0;
 }
