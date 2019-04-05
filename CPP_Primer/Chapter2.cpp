@@ -120,6 +120,44 @@ void study4()
     p2 = &d2;
 }
 
+//**顶层Const --指针本身是个常量  底层Const 指针所指的对象是一个常量*/
+void study5()
+{
+    int i = 9;
+    int *const p1 = &i;  //顶层Const
+    const int ci = 39;   //顶层Const
+    const int *p2 = &ci; //底层Constr
+    const int &r = ci;   //底层Const （申明引用的是底层Const）
+}
+
+//**类型别名*/
+void study6()
+{
+    typedef double wages;   //wages 就是Double类型的别名
+    typedef wages base, *p; //base,wages,double类型 等价,申明了一个double类型的指针 命名为p
+    typedef struct
+    {
+        char c;
+    } s; //申明了一个类型为s的结构体
+
+    s s1;
+    s1.c = 'a';
+    base value = 3.1415926;
+    p point = &value;
+
+    std::cout << s1.c << std::endl;
+    std::cout << value << std::endl;
+    std::cout << point << std::endl;
+    std::cout << *point << '\n'
+              << std::endl;
+
+    typedef int A[]; //申明了一个 int类型数组 类型名称为A
+
+    A a{3, 5};
+    std::cout << a[0] << std::endl;
+    std::cout << a[1] << std::endl;
+}
+
 int main()
 {
 
@@ -129,7 +167,8 @@ int main()
 
     //study3();
 
-    study4();
+    //study4();
 
+    study6();
     return 0;
 }
